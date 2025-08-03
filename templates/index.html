@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LibreTranslate Web</title>
+</head>
+<body>
+  <h1> LibreTranslate Web</h1>
+
+  <form method="POST">
+    <label>Source Language:</label>
+    <select name="source_lang">
+      {% for lang in languages %}
+        <option value="{{ lang.code }}">{{ lang.name }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Target Language:</label>
+    <select name="target_lang">
+      {% for lang in languages %}
+        <option value="{{ lang.code }}">{{ lang.name }}</option>
+      {% endfor %}
+    </select>
+
+    <br><br>
+    <textarea name="text" rows="4" cols="50" placeholder="Enter text to translate..."></textarea><br>
+    <button type="submit">Translate</button>
+  </form>
+
+  {% if result %}
+    <h2>Translated:</h2>
+    <p>{{ result }}</p>
+  {% endif %}
+
+  <h3>Last 5 Translations</h3>
+  <ul>
+    {% for row in history %}
+      <li>[{{ row[4] }}] {{ row[0] }} ➜ {{ row[1] }}: "{{ row[2] }}" ➜ "{{ row[3] }}"</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
